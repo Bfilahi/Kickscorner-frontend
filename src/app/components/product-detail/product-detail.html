@@ -1,0 +1,73 @@
+<section class="py-20 h-screen">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-center items-center flex-col gap-16 mt-9 md:flex-row md:items-start">
+            <div class="max-w-md">
+                <div class="w-full border border-gray-300 dark:border-gray-500">
+                    <img [src]="selectedImage" alt="">
+                </div>
+
+                <div class="flex items-center justify-center gap-2 mt-5">
+                    @for (image of product.images; track $index) {
+                        <button class="w-16 border border-gray-300 dark:border-gray-500 cursor-pointer"
+                        (click)="selectedImage = image.imgUrl">
+                            <img [src]="image.imgUrl" alt="">
+                        </button>
+                    }
+                </div>
+            </div>
+
+            <div class="max-w-md flex flex-col gap-9">
+                <div>
+                    <small class="opacity-70 text-sm">{{ product.brand.name }}</small>
+                    <h3 class="font-semibold">{{ product.name }}</h3>
+                </div>
+
+                <div>
+                    <h3 class="mb-2 font-semibold underline">SELECT SIZE:</h3>
+                    <div class="sizes flex flex-wrap gap-2">
+                        @for (size of sizes; track size.id) {
+                            <div class="flex items-center gap-2 w-16 h-12">
+                                <input class="hidden cursor-pointer" type="radio" #input name="size"
+                                [id]="'size_' + size.name" [disabled]="!doesSizeExist(size.id)" 
+                                (change)="selectSize()">
+
+                                <label [for]="'size_' + size.name"
+                                class="w-full h-full border border-gray-300 dark:border-gray-600 flex items-center justify-center"
+                                [ngClass]="{'opacity-60': input.disabled, 'cursor-pointer': !input.disabled}"> 
+                                    {{ size.name }} 
+                                </label>
+                            </div>
+                        }
+                    </div>
+
+                    @if(showError){
+                        <p class="text-red-400 mt-2 text-sm">Select a size</p>
+                    }
+                </div>
+
+                <div>
+                    <h3 class="font-semibold underline mb-2">BUY NOW:</h3>
+                    <div class="flex items-center gap-3.5">
+                        <button class="font-medium bg-yellow-500 dark:text-black w-full py-2 rounded-sm enabled:cursor-pointer"
+                        [disabled]="!selectedSize"
+                        [ngClass]="{'opacity-30 cursor-default': !selectedSize}"
+                        (click)="checkout()">
+                            {{ product.price | currency: 'EUR' }}
+                        </button>
+                        <button class="border border-yellow-500 p-2 enabled:cursor-pointer rounded-sm"
+                        [disabled]="!selectedSize"
+                        [ngClass]="{'opacity-30 cursor-default': !selectedSize}"
+                        (click)="addToCart()">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="font-semibold underline mb-2">ABOUT THIS PRODUCT:</h3>
+                    <P>{{product.description}}</P>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

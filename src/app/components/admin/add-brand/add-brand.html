@@ -1,0 +1,33 @@
+<section class="min-h-screen py-32 px-4 md:px-0">
+    <div class="max-w-7xl mx-auto">
+        <div class="mx-auto sm:w-xs">
+            <div class="mb-9">
+                <h2 class="font-semibold text-lg">Add a new brand</h2>
+                <p>Name</p>
+            </div>
+
+            <form #brandForm="ngForm" (ngSubmit)="addBrand(brandForm)">
+                <input type="text" placeholder="Enter brand name here" name="brand"
+                        class="placeholder:opacity-50 border border-gray-300 dark:border-gray-500 px-4 py-1.5 w-full rounded-sm" 
+                        ngModel #brand="ngModel" required minlength="2">
+                
+                @if(brand.touched && brand.dirty){
+                    <ng-container>
+                        @if(brand.errors?.['required']){
+                            <p class="text-red-400 mt-2 text-sm">Field is required</p>
+                        }
+                        @else if (brand.errors?.['minlength']) {
+                            <p class="text-red-400 mt-2 text-sm">The minimum length is 3 character</p>
+                        }
+                    </ng-container>
+                }
+
+                <button class="bg-yellow-500 font-bold dark:text-black w-full py-1.5 rounded-sm mt-7 enabled:cursor-pointer"
+                        [disabled]="brandForm.invalid"
+                        [ngClass]="{ 'opacity-30': brandForm.invalid }">
+                    Add brand
+                </button>
+            </form>
+        </div>
+    </div>
+</section>

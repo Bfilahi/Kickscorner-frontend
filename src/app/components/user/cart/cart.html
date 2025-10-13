@@ -1,0 +1,81 @@
+<section class="min-h-screen py-32 p-4">
+    <div class="max-w-7xl mx-auto">
+        <h2 class="font-semibold text-lg mb-9">Shopping cart</h2>
+
+        <div class="flex flex-col items-center gap-12 lg:flex-row lg:items-start">
+                <div class="flex flex-col gap-4 w-full">
+                    @if (cartItems.length > 0) {
+                        <div class="container overflow-x-scroll lg:overflow-x-visible">
+                        @for (cartItem of cartItems; track cartItem.id) {
+                            @if(cartItem.quantity > 0){
+                                <div class="flex items-center border-b border-b-gray-300 dark:border-gray-600 w-5xl lg:w-full">
+                                    <div class="flex items-center gap-7">
+                                        <div class="w-32">
+                                            <img src="{{ cartItem.images[0].imgUrl }}" alt="">
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold text-sm">{{ cartItem.name }}</p>
+                                            <small class="opacity-70 text-sm">{{ cartItem.brand.name }}</small>
+                                            <p class="font-semibold">{{ cartItem.price | currency: 'EUR' }}</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="flex items-center gap-4 ml-auto">
+                                        <button class="cursor-pointer w-14 border border-gray-300 dark:border-gray-600 py-0.5 rounded-sm"
+                                        (click)="this.cartService.decrementQuantity(cartItem)">
+                                            <i class="fa-solid fa-minus"></i>
+                                        </button>
+
+                                        <span>{{ cartItem.quantity }}</span>
+
+                                        <button class="cursor-pointer w-14 border border-gray-300 dark:border-gray-600 py-0.5 rounded-sm"
+                                        (click)="this.cartService.incrementQuantity(cartItem)">
+                                            <i class="fa-solid fa-plus"></i>
+                                        </button>
+
+                                        <button class="cursor-pointer border border-red-500 text-red-500 py-0.5 px-2 font-semibold dark:font-normal rounded-sm"
+                                        (click)="this.cartService.removeFromCart(cartItem)">
+                                            Remove
+                                        </button>
+                                    </div>
+                                </div>
+                            }
+                        }
+                        </div>
+
+                        <button class="cursor-pointer bg-yellow-500 font-bold dark:text-black py-2 rounded-sm w-fit px-2.5 ml-auto"
+                        (click)="clearCart()">
+                            Clear cart
+                        </button>
+                    }
+                    @else{
+                        <div class="text-center text-red-400">
+                        <h3 class="text-xl font-semibold">No items in cart</h3>
+                        <p>Add some items to your cart</p>
+                    </div>
+                    }
+            </div>
+
+            <div class="w-full sm:w-xs bg-gray-200 dark:bg-gray-700 p-4 rounded-md flex flex-col gap-5">
+                <h3 class="font-bold">Order summary</h3>
+                <div class="font-semibold flex justify-between items-center border-y">
+                    <h4>Total: </h4>
+                    <small>{{ this.cartService.getTotal() | currency: 'EUR' }}</small>
+                </div>
+
+                @if(!auth.isLoggedIn()){
+                    <a routerLink="/login"
+                    class="bg-yellow-500 font-bold dark:text-black w-full py-2 rounded-sm text-center">
+                        Login to checkout
+                    </a>
+                }
+                @else {
+                    <button class="cursor-pointer bg-yellow-500 font-bold dark:text-black w-full py-2 rounded-sm"
+                    (click)="checkout()">
+                        Checkout
+                    </button>
+                }
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,30 @@
+<section class="min-h-screen py-32 px-4 md:px-0">
+    <div class="max-w-7xl mx-auto">
+        <div class="mx-auto sm:w-xs">
+            <div class="mb-9">
+                <h2 class="font-semibold text-lg">Add a new size</h2>
+                <p>Name</p>
+            </div>
+
+            <form #sizeForm="ngForm" (ngSubmit)="addSize(sizeForm)">
+                <input type="text" placeholder="Enter size name here" name="size"
+                        class="placeholder:opacity-50 border border-gray-300 dark:border-gray-500 px-4 py-1.5 w-full rounded-sm" 
+                        ngModel #size="ngModel" required>
+                
+                @if(size.touched && size.dirty){
+                    <ng-container>
+                        @if(size.errors?.['required']){
+                            <p class="text-red-400 mt-2 text-sm">Field is required</p>
+                        }
+                    </ng-container>
+                }
+
+                <button class="bg-yellow-500 font-bold dark:text-black w-full py-1.5 rounded-sm mt-7 enabled:cursor-pointer"
+                        [disabled]="sizeForm.invalid"
+                        [ngClass]="{ 'opacity-30': sizeForm.invalid }">
+                    Add size
+                </button>
+            </form>
+        </div>
+    </div>
+</section>

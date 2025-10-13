@@ -1,0 +1,70 @@
+<canvas #canvas id="canvas" class="hidden fixed z-10 top-0 left-0 w-full h-full pointer-events-none lg:block"></canvas>
+
+<section id="hero-1" class="min-h-screen">
+    <div class="flex flex-col justify-center items-center
+            h-screen w-fit mx-auto">
+            
+            <h1 #title id="title" class="sm:text-7xl md:text-8xl xl:text-9xl flex flex-col gap-5">
+                <span class="title">KICKS</span>
+                <span class="title sm:relative sm:z-50 static">CORNER</span>
+            </h1> 
+            
+            <p class="self-start my-2">New concept for summer</p>
+            <a routerLink="/products" class="flex items-center justify-between w-24 py-1 px-2 rounded-2xl border dark:border-gray-600 self-start">
+            Shop <i class="fa-solid fa-chevron-right"></i>
+        </a>
+    </div>
+
+    <ul class="absolute lg:top-1/2 top-1/4 right-4 -translate-y-1/2 flex flex-col gap-3">
+        <li>
+            <a href="https://www.twitter.com" target="_blank"><i class="fa-brands fa-x-twitter text-2xl"></i></a>
+        </li>
+        <li>
+            <a href="https://www.instagram.com" target="_blank"><i class="fa-brands fa-instagram text-2xl"></i></a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com" target="_blank"><i class="fa-brands fa-facebook text-2xl"></i></a>
+        </li>
+    </ul>
+    
+    <a href="#hero-2" class="section-2 absolute bottom-1/3 md:bottom-1/5 left-4 flex-col items-center gap-7 hidden sm:flex">
+        <span class="-rotate-90">SCROLL</span>
+        <i class="fa-solid fa-down-long text-2xl"></i>
+    </a>
+</section>
+
+<section #hero2 id="hero-2" class="lg:min-h-screen p-4">
+    <div class="max-w-7xl h-full lg:h-screen 
+    mx-auto
+    flex flex-col gap-28 items-center 
+    md:flex-row md:justify-center
+    lg:justify-between lg:gap-0">
+    
+    <div class="w-xs">
+        <h2 class="font-bold">
+            <span class="text-lg">WE PROVIDE</span> <br>
+            <span class="text-3xl">MODERN SHOES <br>FOR MODERN <br>LIVING</span>
+        </h2>
+        
+        <p class="max-w-xs">
+            Designed for Your Lifestyle,
+            Crafted for Comfort.
+            Innovative Footwear for Every 
+            Step You Take.
+        </p>
+    </div>
+    
+    <div class="box w-sm border-2 border-dotted dark:border-gray-500 rounded-[4em] h-[30em] hidden lg:block"></div>
+    
+    <div class="relative w-xs">
+        <p class="text-4xl font-bold text-center leading-12 relative z-10">
+            BECAUSE <br>
+            YOUR <br>
+            FEET <br>
+            DESERVE <br>
+            THE BEST.
+        </p>
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-full bg-yellow-500 dark:bg-yellow-600"></div>
+        </div>
+    </div>
+</section>

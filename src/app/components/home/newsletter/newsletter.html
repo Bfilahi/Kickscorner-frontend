@@ -1,0 +1,57 @@
+<section class="bg-gray-800 relative z-50">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col items-center gap-20 md:flex-row">
+            <div class="w-full md:max-w-sm">
+                <img src="/images/newsletter-img.jpg" alt="">
+            </div>
+
+            <form #newsLetterForm="ngForm" class="text-white pb-5 md:pb-0" (ngSubmit)="sendNewsLetter(newsLetterForm)">
+                <h2 class="text-xl mb-4">
+                    SIGN UP <br>
+                    FOR OUR NEWSLETTER
+                </h2>
+                <input type="email" placeholder="Enter your email" name="email" ngModel
+                        class="p-2 border-1 border-gray-600 rounded-md placeholder:opacity-30" 
+                        required pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$">
+            </form>
+        </div>
+    </div>
+</section>
+
+
+<section class="py-48 relative z-50 bg-white dark:bg-gray-950">
+    <div class="max-w-7xl w-fit mx-auto
+        grid grid-cols-1 gap-4 items-start md:grid-cols-2 xl:grid-cols-4">
+        <div class="xl:text-center">
+            <p class="font-semibold">
+                <i class="fa-solid fa-location-dot mr-2"></i>
+                Global Delivery
+            </p>
+            <p>fast & safe</p>
+        </div>
+
+        <div class="xl:text-center">
+            <p class="font-semibold">
+                <i class="fa-solid fa-arrow-right-arrow-left mr-2"></i>
+                Easy Return
+            </p>
+            <p>Returns Available Within 20 Days</p>
+        </div>
+
+        <div class="xl:text-center">
+            <p class="font-semibold">
+                <i class="fa-solid fa-earth-americas mr-2"></i>
+                24/7 Customer Service
+            </p>
+            <p>Quick Reply Within 3 Minutes</p>
+        </div>
+
+        <div class="xl:text-center">
+            <p class="font-semibold">
+                <i class="fa-solid fa-lock mr-2"></i>
+                100% Secure Checkout
+            </p>
+            <p>Stripe Payments</p>
+        </div>
+    </div>
+</section>

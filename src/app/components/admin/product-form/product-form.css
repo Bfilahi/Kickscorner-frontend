@@ -1,0 +1,21 @@
+.sizes input:checked + label{
+    background-color: #fae82690;
+}
+
+.colors input:checked + label{
+    opacity: 1;
+    border-color: white;
+}
+
+input[type="file"]::file-selector-button{
+    background-color: rgb(60, 60, 60);
+    padding: .1em .5em;
+    margin-right: 1em;
+    cursor: pointer;
+    border-radius: .1em;
+    color: white;
+}
+
+input[type="file"].ng-valid:not(.ng-pristine)::file-selector-button{
+    background-color: green;
+}

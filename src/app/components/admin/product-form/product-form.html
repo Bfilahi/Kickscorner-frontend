@@ -1,0 +1,208 @@
+<section class="min-h-screen py-32">
+    <div class="max-w-7xl mx-auto px-4 xl:px-0">
+        <div class="mb-9">
+            <h2 class="font-semibold text-lg">{{ label }}</h2>
+        </div>
+
+        <form [formGroup]="productForm" class="flex flex-col gap-5 sm:w-md mx-auto" (ngSubmit)="handleProduct(productForm)">
+            <div class="flex flex-col gap-3">
+                <label class="underline">Name</label>
+                <input type="text" placeholder="Enter product name here"
+                    class="border border-gray-300 dark:border-gray-500 rounded-sm placeholder:opacity-50 px-4 py-2"
+                    formControlName="name">
+                    @if(productForm.get('name')?.touched && productForm.get('name')?.dirty){
+                        <ng-container>
+                            @if (productForm.get('name')?.hasError('required') || productForm.get('name')?.hasError('noWhiteSpaces')) {
+                                <p class="text-red-400 mt-2 text-sm">Field is required</p>
+                            }
+                        </ng-container>
+                    }
+            </div>
+
+            <div class="flex flex-col gap-3">
+                <label class="underline">Description</label>
+                <textarea class="min-w-full min-h-10 border border-gray-300 dark:border-gray-500 rounded-sm placeholder:opacity-50 px-4 py-2"
+                    placeholder="Enter product's description"
+                    formControlName="description"></textarea>
+
+                @if (productForm.get('description')?.touched && productForm.get('description')?.dirty) {
+                    <ng-container>
+                        @if (productForm.get('description')?.hasError('required') || productForm.get('description')?.hasError('noWhiteSpaces')) {
+                            <p class="text-red-400 mt-2 text-sm">Field is required</p>
+                        }
+                    </ng-container>
+                }
+            </div>
+
+            @if (dataLoaded && brands && brands.length > 0) {
+                <div class="flex flex-col gap-3">
+                    <label class="underline">Brand</label>
+                    <div>
+                        @for (brand of brands; track brand.id){
+                            <div class="flex items-center gap-1.5">
+                                <input type="radio" 
+                                class="cursor-pointer" 
+                                [id]="'brand_' + brand.id"
+                                [value]="brand.id"
+                                formControlName="brand">
+
+                                <label [for]="'brand_' + brand.id" class="w-full cursor-pointer px-2.5"
+                                [ngClass]="{'bg-gray-800': $index % 2 == 0}">
+                                    {{ brand.name }}
+                                </label>
+                            </div>
+                        }
+                    </div>
+                    @if (productForm.get('brand')?.touched && productForm.get('brand')?.dirty) {
+                        <ng-container>
+                            @if (productForm.get('brand')?.hasError('required')) {
+                                <p class="text-red-400 mt-2 text-sm">Field is required</p>
+                            }
+                        </ng-container>
+                    }
+
+                    <a routerLink="/admin/new-brand" class="bg-yellow-500 font-bold text-center dark:text-black px-4 py-1 rounded-sm block mt-7 w-full">
+                        Add brand
+                    </a>
+                </div>
+            }
+
+
+            @if (dataLoaded && colors && colors.length > 0) {
+                <div class="flex flex-col gap-3">
+                    <label class="underline">Color</label>
+                    <div class="colors flex flex-wrap gap-2">
+                        @for (color of colors; track color.id) {
+                            <div class="flex items-center gap-2 w-9 h-9" formArrayName="colors">
+                                <input class="hidden" type="checkbox"
+                                [id]="'color_' + color.id" 
+                                [formControlName]="$index">
+
+                                <label [for]="'color_' + color.id" 
+                                class="w-full h-full border border-gray-300 dark:border-gray-500 flex items-center justify-center opacity-40"
+                                [style.background-color]="color.name">
+                                </label>
+                            </div>
+                        }
+
+                        @if (productForm.get('colors')?.touched && productForm.get('colors')?.dirty) {
+                            <ng-container>
+                                @if (productForm.get('colors')?.hasError('required')) {
+                                    <p class="text-red-400 mt-2 text-sm">Field is required</p>
+                                }
+                            </ng-container>
+                        }
+                    </div>
+
+                    <a routerLink="/admin/new-color" class="bg-yellow-500 font-bold text-center dark:text-black px-4 py-1 rounded-sm block mt-7 w-full">
+                        Add color
+                    </a>
+                </div>
+            }
+
+            <div class="flex flex-col gap-3">
+                <label class="underline">Price</label>
+                <input type="number" class="border border-gray-300 dark:border-gray-500 rounded-sm px-4 py-2" min="1"
+                formControlName="price">
+
+                @if (productForm.get('price')?.touched && productForm.get('price')?.dirty) {
+                    <ng-container>
+                        @if (productForm.get('price')?.hasError('required')) {
+                            <p class="text-red-400 mt-2 text-sm">Field is required</p>
+                        }
+                        @if (productForm.get('price')?.hasError('min')){
+                            <p class="text-red-400 mt-2 text-sm">Positive values only</p>
+                        }
+                    </ng-container>
+                }
+            </div>
+
+            <div class="flex flex-col gap-3">
+                <label class="underline">Units in stock</label>
+                <input type="number" class="border border-gray-300 dark:border-gray-500 rounded-sm px-4 py-2" min="1"
+                formControlName="unitsInStock">
+
+                @if (productForm.get('unitsInStock')?.touched && productForm.get('unitsInStock')?.dirty) {
+                    <ng-container>
+                        @if (productForm.get('unitsInStock')?.hasError('required')) {
+                            <p class="text-red-400 mt-2 text-sm">Field is required</p>
+                        }
+                        @if (productForm.get('unitsInStock')?.hasError('min')){
+                            <p class="text-red-400 mt-2 text-sm">Positive values only</p>
+                        }
+                    </ng-container>
+                }
+            </div>
+
+            @if (dataLoaded && sizes && sizes.length > 0) {
+                <div class="flex flex-col gap-3">
+                    <label class="underline">Sizes</label>
+                    <div class="flex flex-col gap-5">
+                        <div class="sizes flex flex-wrap gap-2" formArrayName="sizes">
+                            @for (size of sizes; track size.id) {
+                                <div class="flex items-center gap-2 w-9 h-9">
+                                    <input class="hidden" type="checkbox"
+                                    [id]="'size_' + size.id" 
+                                    [formControlName]="$index">
+
+                                    <label [for]="'size_' + size.id"
+                                        class="w-full h-full border border-gray-300 dark:border-gray-500 flex items-center justify-center">
+                                        {{ size.name }}
+                                    </label>
+                                </div>
+                            }
+                        </div>
+
+                        @if (productForm.get('sizes')?.touched && productForm.get('sizes')?.dirty) {
+                            <ng-container>
+                                @if (productForm.get('sizes')?.hasError('required')) {
+                                    <p class="text-red-400 mt-2 text-sm">Field is required</p>
+                                }
+                            </ng-container>
+                        }
+
+                        <a routerLink="/admin/new-size" class="bg-yellow-500 font-bold text-center dark:text-black px-4 py-1 rounded-sm block mt-7 w-full">
+                            Add size
+                        </a>
+                    </div>
+                </div>
+            }
+
+            <div class="flex flex-col gap-3" [formGroupName]="'images'">
+                <label class="underline">Images</label>
+                @if(productData && productData.images.length > 0) {
+                    <div class="flex flex-wrap gap-2">
+                        @for(img of productData.images; track $index) {
+                            <div class="relative w-24 h-24 border rounded-sm">
+                                <img [src]="img.imgUrl" class="object-cover w-full h-full" alt="Product Image">
+                                </div>
+                        }
+                    </div>
+                }
+
+                @for (img of imageFieldNames; track $index) {
+                    <input type="file" 
+                    [name]="img"
+                    accept="image/*"
+                    formControlName="{{img}}"
+                    #fileInput
+                    class="border border-gray-300 dark:border-gray-500 p-2 rounded-sm cursor-pointer">
+
+                    @if (productForm.get('images.' + img)?.touched && productForm.get('images.' + img)?.dirty) {
+                        <ng-container>
+                            @if (productForm.get('images.' + img)?.hasError('required')) {
+                                <p class="text-red-400 mt-2 text-sm">Field is required</p>
+                            }
+                        </ng-container>
+                    }
+                }
+            </div>
+
+                <button class="bg-yellow-500 font-bold dark:text-black py-2 rounded-sm enabled:cursor-pointer"
+                [disabled]="productForm.invalid"
+                [ngClass]="{ 'opacity-30 cursor-default': productForm.invalid }">
+                    {{ label }}
+                </button>
+        </form>
+    </div>
+</section>

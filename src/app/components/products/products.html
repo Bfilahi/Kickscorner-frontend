@@ -1,0 +1,70 @@
+<section class="pt-28 pb-16 min-h-screen">
+    <div class="max-w-5xl mx-auto flex flex-col justify-center gap-10 md:flex-row px-4">
+        <button class="cursor-pointer w-[50%] sm:w-[40%] mx-auto bg-yellow-500 font-bold dark:text-black py-1 rounded-sm md:hidden" 
+        (click)="showFilter = true">
+            FILTER
+        </button>
+        
+        <app-filter 
+        [(showFilter)]="showFilter" 
+        [partialParams]="partialParams"
+        [sortingEvent]="sortingSubject.asObservable()" 
+        (getProducts)="updateProducts($event)"/>
+
+        <div>
+            <div class="flex flex-col gap-4 items-center justify-between sm:flex-row">
+                <p>
+                    <span class="font-semibold">Showing</span> &nbsp;
+                    <span class="ml-3">{{ showingStart }}</span> - <span>{{ showingEnd }}</span> &nbsp;
+                    of 
+                    <span class="ml-3">{{ totalItems }}</span> &nbsp;
+                    results
+                </p>
+
+                <div class="flex items-center gap-2">
+                    <select class="cursor-pointer border border-gray-300 dark:border-gray-500"
+                    (change)="onSortChange($event)">
+                        <option class="bg-gray-800">Sort By:</option>
+                        <option value="oldest" class="bg-gray-800">Oldest</option>
+                        <option value="newest" class="bg-gray-800">Newest</option>
+                        <option value="highToLow" class="bg-gray-800">Price high to low</option>
+                        <option value="lowToHigh" class="bg-gray-800">Price low to high</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="my-7 grid grid-cols-1 justify-items-center md:grid-cols-2 lg:grid-cols-3 gap-7">
+                @for (product of products | 
+                paginate: { itemsPerPage: partialParams.size, currentPage: partialParams.page, totalItems: totalItems }; track product.id) {
+                    <div class="shadow-sm dark:shadow-gray-800 w-56 rounded-sm overflow-hidden">
+                        <a routerLink="/product/{{product.id}}">
+                            <div class="w-full">
+                                <img src="{{ product.images[0].imgUrl }}" alt="{{ product.name }}" class="w-full">
+                            </div>
+                            <div class="p-3 text-sm">
+                                <small class="opacity-70 text-sm">{{ product.brand.name }}</small>
+                                <h3 class="my-3 font-semibold">{{ product.name }}</h3>
+                                <p class="font-medium">{{ product.price | currency: 'EUR' }}</p>
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+
+            
+            <div class="flex justify-center"
+            [ngClass]="{'hidden': products.length <= 0}">
+                <pagination-controls class="pagination"
+                (pageChange)="onPageChange(partialParams.page = $event)">
+                </pagination-controls>
+            </div>
+
+            @if (products.length <= 0 && !isLoading) {
+                <div class="text-red-400">
+                    <p>NOTHING MATCHES YOUR SEARCH</p>
+                    <p>But don't give up – check the spelling or try less specific search terms.</p>
+                </div>
+            }
+        </div>
+    </div>
+</section>

@@ -1,0 +1,81 @@
+<section class="min-h-screen py-32 px-4 relative">
+    <div class="max-w-7xl mx-auto">
+        <div class="mb-9">
+            <h2 class="font-semibold text-lg">Your orders</h2>
+            <p>Here's the list of your orders</p>
+        </div>
+
+        <div class="container w-full mx-auto overflow-x-scroll lg:overflow-x-visible">
+            <table class="border border-gray-300 dark:border-gray-600 w-5xl lg:w-full">
+                <thead class="border border-gray-300 dark:border-gray-600">
+                    <tr>
+                        <th></th>
+                        <th class="text-left">Order</th>
+                        <th class="text-left">N. of items</th>
+                        <th class="text-left">Total amount</th>
+                        <th class="text-left">Address</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (order of orders; track order.id) {
+                        <tr class="border border-gray-300 dark:border-gray-600 cursor-pointer"
+                        [ngClass]="{'bg-gray-800': $index % 2 == 0}"
+                        (click)="showOrderItems(order.orderItems)">
+                            <td class="py-1.5 w-24 px-4">{{ $index }}</td>
+                            <td class="py-1.5">{{ order.stripeSessionId }}</td>
+                            <td class="py-1.5">{{ order.totalPrice | currency: 'EUR' }}</td>
+                            <td class="py-1.5 text-center">{{ order.totalQuantity }}</td>
+                            <td class="py-1.5">
+                                <p>{{ order.shippingAddress.line1}}</p>
+                                <p>{{ order.shippingAddress.line2}}</p>
+                                <p>{{ order.shippingAddress.city}}</p>
+                                <p>{{ order.shippingAddress.postalCode}}</p>
+                                <p>{{ order.shippingAddress.country}}</p>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    @if (orders.length <= 0 && !isLoading) {
+        <div class="text-red-400 mx-auto w-fit mt-20">
+            <p>LIST IS EMPTY</p>
+        </div>
+    }
+
+    @if(showModal){
+        <div class="overlay absolute top-0 left-0 z-30 w-full h-screen bg-black opacity-70"
+        style="backdrop-filter: blur(10px);"
+        (click)="closeModal()"></div>
+    
+
+        <div class="bg-black w-[100%] md:w-[50%] absolute top-1/4 left-1/2 -translate-1/2 z-50 border-1 border-gray-300 rounded-md py-3 px-2">
+
+            <button class="cursor-pointer ml-auto mb-3 block" (click)="closeModal()">
+                <i class="fa-solid fa-circle-xmark text-2xl text-amber-300"></i>
+            </button>
+
+            @for (item of orderItems; track item.id) {
+                <div class="flex items-center dark:border-gray-600" 
+                [ngClass]="{'bg-gray-800': $index % 2 == 0}">
+                    <div class="flex items-center gap-7">
+                        <div class="w-32">
+                            <img src="{{ item.imageUrl }}" alt="{{ item.name }}">
+                        </div>
+                        <div>
+                            <p class="font-semibold text-sm">{{ item.name}}</p>
+                            <p class="font-semibold">{{ item.unitPrice| currency: 'EUR' }}</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-4 ml-auto px-1">
+                        <span>quantity:</span>
+                        <span>{{ item.quantity }}</span>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+</section>

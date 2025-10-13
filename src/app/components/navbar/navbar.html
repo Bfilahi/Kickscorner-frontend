@@ -1,0 +1,61 @@
+<app-navbar-small-devices />
+
+<div class="max-w-7xl mx-auto px-4 py-7 hidden md:block relative z-50">
+    <header class="items-center gap-17 hidden md:flex">
+        <a routerLink="/" class="logo dark:text-black">KICKSCORNER</a>
+
+        <nav class="w-full">
+            <ul class="flex items-center gap-4">
+                <li>
+                    <a routerLink="/">Home</a>
+                </li>
+                <li>
+                    <a routerLink="/products">Shop</a>
+                </li>
+
+                @if (isAdmin) {
+                    <li class="relative ml-auto">
+                        <button class="cursor-pointer btn-admin">Admin</button>
+                        <div class="absolute top-full left-0 z-10 flex flex-col shadow-sm rounded-sm bg-black overflow-hidden border border-gray-700 opacity-0 pointer-events-none">
+                            <a routerLink="/admin/products" class="hover:bg-gray-50 dark:hover:bg-gray-700 px-5 py-1">Products</a>
+                            <a routerLink="/admin/brands" class="hover:bg-gray-50 dark:hover:bg-gray-700 px-5 py-1">Brands</a>
+                            <a routerLink="/admin/colors" class="hover:bg-gray-50 dark:hover:bg-gray-700 px-5 py-1">Colors</a>
+                            <a routerLink="/admin/sizes" class="hover:bg-gray-50 dark:hover:bg-gray-700 px-5 py-1">Sizes</a>
+                            <a routerLink="/admin/users" class="hover:bg-gray-50 dark:hover:bg-gray-700 px-5 py-1">Users</a>
+                        </div>
+                    </li>
+                }
+
+                <li class="ml-auto flex items-center gap-5">
+                    <div class="user cursor-pointer relative">
+                        <i class="fa-solid fa-user"></i>
+
+                        <div class="absolute top-full left-0 z-10 w-32 rounded-sm shadow-sm dark:border dark:border-gray-700 flex flex-col bg-black opacity-0 pointer-events-none">
+                            @if (!isLoggedIn) {
+                                <a routerLink="/login" class="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 px-3 py-1 w-full text-left">Login</a>
+                            }
+                            @else {
+                                <a routerLink="/profile" class="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 px-3 py-1 w-full text-left">My Account</a>
+                                <a routerLink="/orders" class="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 px-3 py-1 w-full text-left">My Orders</a>
+                                <button (click)="logout()" class="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700 px-3 py-1 w-full text-left">Logout</button>
+                            }
+                        </div>
+                    </div>
+
+                    <a routerLink="/cart" class="cursor-pointer relative">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        <span class="absolute -top-3 -right-3 
+                                    w-5 h-5 rounded-full 
+                                    flex items-center justify-center 
+                                    bg-yellow-400 dark:bg-yellow-600
+                                    text-sm">
+                                {{ (items$ | async)?.length }}
+                        </span>
+                    </a>
+
+                    <a href="tel:+391234567890" class="tracking-wider ml-7">+39 1234567890</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+</div>

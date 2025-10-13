@@ -1,0 +1,8 @@
+.sizes input:checked + label{
+   background-color: #fae82690;
+}
+
+.colors input:checked + label{
+    opacity: 1;
+    border-color: white;
+}

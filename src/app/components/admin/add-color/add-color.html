@@ -1,0 +1,33 @@
+<section class="min-h-screen py-32 px-4 md:px-0">
+    <div class="max-w-7xl mx-auto">
+        <div class="mx-auto sm:w-xs">
+            <div class="mb-9">
+                <h2 class="font-semibold text-lg">Add a new color</h2>
+                <p>Name</p>
+            </div>
+
+            <form #colorForm="ngForm" (ngSubmit)="addColor(colorForm)">
+                <input type="text" placeholder="Enter color name here" name="color"
+                        class="placeholder:opacity-50 border border-gray-300 dark:border-gray-500 px-4 py-1.5 w-full rounded-sm" 
+                        ngModel #color="ngModel" required minlength="3">
+                
+                @if(color.touched && color.dirty){
+                    <ng-container>
+                        @if(color.errors?.['required']){
+                            <p class="text-red-400 mt-2 text-sm">Field is required</p>
+                        }
+                        @else if (color.errors?.['minlength']) {
+                            <p class="text-red-400 mt-2 text-sm">The minimum length is 3 character</p>
+                        }
+                    </ng-container>
+                }
+
+                <button class="bg-yellow-500 font-bold dark:text-black w-full py-1.5 rounded-sm mt-7 enabled:cursor-pointer"
+                        [disabled]="colorForm.invalid"
+                        [ngClass]="{ 'opacity-30': colorForm.invalid }">
+                    Add color
+                </button>
+            </form>
+        </div>
+    </div>
+</section>

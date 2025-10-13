@@ -1,0 +1,29 @@
+#canvas{
+    will-change: transform;
+}
+
+#title{
+    font-family: "Bungee", sans-serif;
+}
+
+
+.title{
+    writing-mode: vertical-lr;
+}
+
+
+@media(width >= 48em) { 
+    #title{
+        flex-direction: row;
+    }
+
+    .title{
+        writing-mode:horizontal-tb;
+    }
+}
+
+@media(width <= 40em){
+    #title{
+        font-size: 4em;
+    }
+}

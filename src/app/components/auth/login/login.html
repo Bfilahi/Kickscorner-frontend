@@ -1,0 +1,57 @@
+<div class="min-h-svh flex items-center justify-center">
+    <div class="flex flex-col gap-9 border rounded-md p-3.5 w-xs md:w-xl border-gray-500">
+        <label class="logo dark:text-black mx-auto">KICKSCORNER</label>
+        <h3 class="text-2xl font-semibold">Login</h3>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin(loginForm)">
+            <div class="flex flex-col gap-5">
+                <div class="flex flex-col">
+                    <label>Email</label>
+                    <input type="email" placeholder="Enter Email" formControlName="email"
+                    class="border border-gray-300 dark:border-gray-500 placeholder:opacity-50 px-4 py-1.5 w-full rounded-sm">
+
+                    @if (loginForm.get('email')?.touched && loginForm.get('email')?.dirty) {
+                        <ng-container>
+                            @if (loginForm.get('email')?.errors?.['required']) {
+                                <p class="text-red-400 mt-2 text-sm">Field is required</p>
+                            }
+                            @if (loginForm.get('email')?.errors?.['pattern']) {
+                                <p class="text-red-400 mt-2 text-sm">Invalid email</p>
+                            }
+                        </ng-container>
+                    }
+                </div>
+
+                <div class="flex flex-col">
+                    <label>Password</label>
+                    <input type="password" placeholder="Enter Password" formControlName="password"
+                    class="border border-gray-300 dark:border-gray-500 placeholder:opacity-50 px-4 py-1.5 w-full rounded-sm">
+
+                    @if (loginForm.get('password')?.touched && loginForm.get('password')?.dirty) {
+                        <ng-container>
+                            @if (loginForm.get('password')?.errors?.['required']) {
+                                <p class="text-red-400 mt-2 text-sm">Field is required</p>
+                            }
+                            @if (loginForm.get('password')?.errors?.['pattern']) {
+                                <p class="text-red-400 mt-2 text-sm">
+                                    Password must be 8 characters long. <br>
+                                    Should contain at least 1 digit, and 1 uppercase character.
+                                </p>
+                            }
+                        </ng-container>
+                    }
+                </div>
+
+                <button class="bg-yellow-500 font-bold dark:text-black w-full py-1.5 rounded-sm mt-7 enabled:cursor-pointer"
+                [disabled]="loginForm.invalid"
+                [ngClass]="{'opacity-30': loginForm.invalid}">Login</button>
+
+                @if (errorMsg().length > 0) {
+                    <p style="color:red">{{ errorMsg() }}</p>
+                }
+            </div>
+        </form>
+
+        <p><span class="opacity-70">Don't have an account? </span><a routerLink="/register" class="underline text-yellow-400">Sign up</a></p>
+    </div>
+</div>

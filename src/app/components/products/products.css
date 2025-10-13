@@ -1,0 +1,17 @@
+.pagination ::ng-deep .ngx-pagination .ng-star-inserted{
+    color: white;
+}
+
+.pagination ::ng-deep .ngx-pagination .current{
+    background-color: #efb100;
+}
+
+.pagination ::ng-deep .ngx-pagination .current .ng-star-inserted{
+    color: #000;
+    font-weight: bold;
+}
+
+.pagination ::ng-deep .ngx-pagination .ng-star-inserted:hover:not(.pagination ::ng-deep .ngx-pagination .disabled .ng-star-inserted){
+    background-color: #ffd972;
+    color: #000;
+}

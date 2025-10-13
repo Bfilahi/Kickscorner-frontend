@@ -1,0 +1,13 @@
+.btn-admin + div{
+    transition: all .2s linear;
+}
+
+
+@media (hover: hover){
+    .btn-admin:hover + div,
+    .btn-admin + div:hover,
+    .user:hover div{
+        opacity: 1;
+        pointer-events: all;
+    }
+}

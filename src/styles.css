@@ -1,1 +1,41 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+
+*,
+*::before,
+*::after{
+    box-sizing: border-box;
+}
+
+html{
+    scroll-behavior: smooth;
+    overflow-x: hidden;
+}
+
+body{
+    font-family: 'Clash Display', sans-serif;
+}
+
+button,
+a{
+    font-family: "Inter", sans-serif;
+}
+
+.logo{
+    font-family: "Bungee", sans-serif;
+    background-color: rgb(244, 190, 56);
+    padding-inline: .5em;
+}
+
+::-webkit-scrollbar{
+    width: .5em;
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: rgb(168, 168, 168);
+    border-radius: 10em;
+}
+
+::-webkit-scrollbar-track{
+    background-color: black;
+}

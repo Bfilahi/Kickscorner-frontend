@@ -1,0 +1,25 @@
+.container::-webkit-scrollbar{
+    height: .5em;
+}
+
+.container::-webkit-scrollbar-thumb{
+    visibility: hidden;
+}
+
+.container:hover::-webkit-scrollbar-thumb{
+    visibility: visible;
+}
+
+.container::-webkit-scrollbar-track{
+    background-color: #e6e6e6;
+}
+
+@media(prefers-color-scheme){
+    .container::-webkit-scrollbar-track{
+        background-color: #787878;
+    }
+
+    .container::-webkit-scrollbar-thumb{
+        background-color: rgb(227, 227, 227);
+    }  
+}

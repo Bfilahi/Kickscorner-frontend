@@ -1,0 +1,3 @@
+.sizes input:checked + label{
+    background-color: #fae82690;
+}

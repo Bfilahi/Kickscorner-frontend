@@ -1,0 +1,71 @@
+<aside class="md:w-56  md:block p-4 md:p-0 fixed md:static top-0 left-0 z-[100] w-full h-screen bg-gray-900 md:bg-transparent"
+    [ngClass]="{'hidden': !showFilter}">
+    <div class="flex items-center justify-between mb-8">
+        <h2 class="font-semibold">FILTER</h2>
+        <button class="cursor-pointer md:hidden" (click)="showFilterChange.emit(false)"> 
+            <i class="fa-solid fa-circle-xmark"></i>
+        </button>
+    </div>
+
+    <div class="mt-7 flex flex-col gap-7">
+        <button class="mb-2 cursor-pointer bg-yellow-500 font-bold text-sm dark:text-black py-1 px-2 rounded-sm"
+        (click)="showResults()">
+            VIEW RESULTS
+        </button>
+
+        <div>
+            <h3 class="font-semibold mb-2">Brand</h3>
+
+            <div>
+                @for (brand of brands; track $index) {
+                    <div class="flex items-center gap-2">
+                        <input type="checkbox" [id]="'brand_' + brand.id"
+                        [checked]="selectedBrands.includes(brand.id)"
+                        (change)="onItemChange($event, brand.id, selectedBrands)">
+                        <label [for]="'brand_' + brand.id">{{ brand.name }}</label>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="sizes">
+            <h3 class="font-semibold mb-2">Size</h3>
+
+            <div class="flex flex-wrap gap-2">
+                @for (size of sizes; track $index) {
+                    <div class="flex items-center gap-2 w-9 h-9">
+                        <input class="hidden group" type="checkbox" [id]="'size_' + size.id"
+                        [checked]="selectedSizes.includes(size.id)"
+                        (change)="onItemChange($event, size.id, selectedSizes)">
+                        <label [for]="'size_' + size.id" class="w-full h-full border border-gray-300 dark:border-gray-600 flex items-center justify-center"> 
+                            {{ size.name }} 
+                        </label>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div class="colors">
+            <h3 class="font-semibold mb-2">Color</h3>
+
+            <div class="flex flex-wrap gap-2">
+                @for (color of colors; track $index) {
+                    <div class="flex items-center gap-2">
+                        <input class="hidden group" type="checkbox" [id]="'color_' + color.id"
+                        [checked]="selectedColors.includes(color.id)"
+                        (change)="onItemChange($event, color.id, selectedColors)">
+                        <label [for]="'color_' + color.id" 
+                        class="w-24 border border-gray-300 dark:border-gray-600 flex items-center gap-1 p-1 h-7 opacity-50"
+                        [style]="{'background-color': color.name}">
+                        </label>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <button class="mt-1.5 cursor-pointer bg-yellow-500 font-bold text-sm dark:text-black py-1 px-2 rounded-sm"
+        (click)="clearFilters()">
+            CLEAR FILTER
+        </button>
+    </div>
+</aside>

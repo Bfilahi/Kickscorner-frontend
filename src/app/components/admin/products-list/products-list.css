@@ -1,0 +1,44 @@
+.container::-webkit-scrollbar{
+    height: .5em;
+}
+
+.container::-webkit-scrollbar-thumb{
+    visibility: hidden;
+}
+
+.container:hover::-webkit-scrollbar-thumb{
+    visibility: visible;
+}
+
+.container::-webkit-scrollbar-track{
+    background-color: #e6e6e6;
+}
+
+.pagination ::ng-deep .ngx-pagination .ng-star-inserted{
+    color: white;
+}
+
+.pagination ::ng-deep .ngx-pagination .current{
+    background-color: #efb100;
+}
+
+.pagination ::ng-deep .ngx-pagination .current .ng-star-inserted{
+    color: #000;
+    font-weight: bold;
+}
+
+.pagination ::ng-deep .ngx-pagination .ng-star-inserted:hover:not(.pagination ::ng-deep .ngx-pagination .disabled .ng-star-inserted){
+    background-color: #ffd972;
+    color: #000;
+}
+
+
+@media(prefers-color-scheme){
+    .container::-webkit-scrollbar-track{
+        background-color: #787878;
+    }
+
+    .container::-webkit-scrollbar-thumb{
+        background-color: rgb(227, 227, 227);
+    }  
+}
